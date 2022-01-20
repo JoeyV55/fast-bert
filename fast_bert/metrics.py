@@ -72,6 +72,29 @@ def fbeta(
     res = (prec * rec) / (prec * beta2 + rec + eps) * (1 + beta2)
     return res.mean().item()
 
+def fbetafull(
+    y_pred: Tensor,
+    y_true: Tensor,
+    thresh: float = 0.3,
+    beta: float = 2,
+    eps: float = 1e-9,
+    sigmoid: bool = True,
+    **kwargs
+):
+    "Computes the f_beta between `preds` and `targets`"
+    beta2 = beta ** 2
+    if sigmoid:
+        y_pred = y_pred.sigmoid()
+    y_pred = (y_pred > thresh).float()
+    y_true = y_true.float()
+    TP = (y_pred * y_true).sum(dim=1)
+    prec = TP / (y_pred.sum(dim=1) + eps)
+    rec = TP / (y_true.sum(dim=1) + eps)
+    res = (prec * rec) / (prec * beta2 + rec + eps) * (1 + beta2)
+    #Return an array of the values of prec, rec, and fmeasure. 
+    resDict = {"Precision" : prec, "Recall" : rec, "Fmeasure" : res.mean().item()}
+    return resDict
+
 
 def roc_auc(y_pred: Tensor, y_true: Tensor, **kwargs):
     # ROC-AUC calcualation
@@ -127,7 +150,8 @@ def F1(
     threshold: float = CLASSIFICATION_THRESHOLD,
     **kwargs
 ):
-    return fbeta(y_pred, y_true, thresh=threshold, beta=1)
+    #return fbeta(y_pred, y_true, thresh=threshold, beta=1)
+    return fbetafull(y_pred, y_true, thresh=threshold, beta=1)
 
 
 def confusion_matrix(y_pred: Tensor, y_true: Tensor, **kwargs):
