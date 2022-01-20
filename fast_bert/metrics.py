@@ -92,7 +92,7 @@ def fbetafull(
     rec = TP / (y_true.sum(dim=1) + eps)
     res = (prec * rec) / (prec * beta2 + rec + eps) * (1 + beta2)
     #Return an array of the values of prec, rec, and fmeasure. 
-    resDict = {"Precision" : prec, "Recall" : rec, "Fmeasure" : res.mean().item()}
+    resDict = {"PrecisionAvg" : prec.mean().item(), "PrecisionByLabel" : prec, "RecallAvg" : rec.mean().item(), "RecallByLabel" : rec, "FmeasureAvg" : res.mean().item(), "FmeasurebyLabel" : res.mean().item()}
     return resDict
 
 
