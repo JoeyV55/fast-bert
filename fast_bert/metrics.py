@@ -70,6 +70,9 @@ def fbeta(
     prec = TP / (y_pred.sum(dim=1) + eps)
     rec = TP / (y_true.sum(dim=1) + eps)
     res = (prec * rec) / (prec * beta2 + rec + eps) * (1 + beta2)
+    print("Prec type:", type(prec))
+    print("Rec type: ", type(rec))
+    print("Res item: ", res.item())
     return res.mean().item()
 
 def fbetafull(
