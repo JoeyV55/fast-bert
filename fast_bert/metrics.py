@@ -93,7 +93,6 @@ def fbetafull(
     res = (prec * rec) / (prec * beta2 + rec + eps) * (1 + beta2)
     print("Prec type:", type(prec))
     print("Rec type: ", type(rec))
-    print("Res item: ", res.item())
     #Return an array of the values of prec, rec, and fmeasure. 
     resDict = {"PrecisionAvg" : prec.mean().item(), "PrecisionByLabel" : prec, "RecallAvg" : rec.mean().item(), "RecallByLabel" : rec, "FmeasureAvg" : res.mean().item(), "FmeasurebyLabel" : res}
     return resDict
