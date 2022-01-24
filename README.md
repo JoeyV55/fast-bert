@@ -1,3 +1,5 @@
+# Fork created to expose the precision and recall metrics of the fast-bert classifier. Returns the precision and recall along with computed fmeasure using the added fbetafull helper function in metrics.py.
+
 # Fast-Bert
 
 [![License Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/deepmipt/DeepPavlov/blob/master/LICENSE)
